@@ -1,0 +1,1960 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JEEPIA Fish Station | Fresh Seafood Supply & Delivery</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Sora', sans-serif; background: #f4f7f6; color: #0d1f1e; line-height: 1.55; }
+
+    :root {
+      --teal:       #0ea5a0;
+      --teal-dark:  #0c8a86;
+      --teal-xdark: #0a706c;
+      --teal-light: #e0f7f6;
+      --teal-mid:   #b2efed;
+      --navy:       #0d1f1e;
+      --navy-mid:   #162f2d;
+      --navy-soft:  #1e3a38;
+      --amber:      #f59e0b;
+      --red:        #ef4444;
+      --green:      #10b981;
+      --bg:         #f4f7f6;
+      --surface:    #ffffff;
+      --border:     #dde8e7;
+      --text-muted: #5c7a78;
+      --text-soft:  #8aa8a6;
+      --gray-50:    #f8fafa;
+      --gray-100:   #eef3f3;
+      --gray-200:   #dde8e7;
+      --gray-500:   #5c7a78;
+      --gray-700:   #2e4e4c;
+      --shadow-sm:  0 1px 4px rgba(14,165,160,0.08);
+      --shadow:     0 4px 16px rgba(14,165,160,0.10);
+      --shadow-lg:  0 12px 32px rgba(14,165,160,0.15);
+      --radius:     14px;
+      --radius-sm:  10px;
+      --radius-lg:  20px;
+    }
+
+    /* ---- PREMIUM MODAL STYLES ---- */
+    .jmodal-overlay {
+      position:fixed; inset:0; background:rgba(13,31,30,0.65); z-index:9999;
+      display:flex; align-items:center; justify-content:center; padding:1rem;
+      animation: fadeIn 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .jmodal {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fdfd 100%);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      animation: slideUp 0.25s ease;
+      border: 1px solid rgba(14,165,160,0.2);
+    }
+    @keyframes slideUp { from{transform:translateY(24px);opacity:0} to{transform:translateY(0);opacity:1} }
+    .jmodal-icon {
+      font-size: 3.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      animation: pop 0.3s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .jmodal-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 0.6rem;
+      font-weight: 500;
+    }
+    .jmodal-msg {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      text-align: center;
+      line-height: 1.65;
+      margin-bottom: 1.8rem;
+      white-space: pre-line;
+    }
+    .jmodal-btn {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    .jmodal-btn-primary {
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      color: white;
+      box-shadow: 0 4px 12px rgba(14,165,160,0.35);
+    }
+    .jmodal-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(14,165,160,0.4);
+    }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .legend-box.unavailable{
+      background:#9ca3af;
+      border:1px solid #6b7280;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.6rem 1.4rem; border-radius: 999px;
+      font-weight: 600; font-size: 0.875rem; font-family: inherit;
+      transition: all 0.18s ease; cursor: pointer; border: none;
+      letter-spacing: 0.01em; white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(14,165,160,0.35);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal-xdark) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(14,165,160,0.4);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-outline {
+      border: 1.5px solid var(--teal); color: var(--teal-dark); background: white;
+    }
+    .btn-outline:hover { background: var(--teal-light); border-color: var(--teal-dark); }
+    .btn-ghost {
+      color: var(--teal); background: transparent;
+      padding: 0.5rem 1rem;
+    }
+    .btn-ghost:hover { background: var(--teal-light); }
+    .btn-danger {
+      background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca;
+    }
+    .btn-danger:hover { background: #fecaca; }
+    .btn-sm { padding: 0.35rem 0.9rem; font-size: 0.78rem; }
+    .btn-lg { padding: 0.8rem 2rem; font-size: 1rem; }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: var(--navy);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap;
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(10px);
+    }
+    .logo { display: flex; align-items: center; gap: 11px; cursor: pointer; }
+    .logo-icon {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      width: 40px; height: 40px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: 0 2px 8px rgba(14,165,160,0.4);
+    }
+    .logo-text { line-height: 1.15; }
+    .logo-name {
+      font-family: 'DM Serif Display', serif;
+      color: #fff; font-size: 1.15rem; font-weight: 400; letter-spacing: 0.01em;
+    }
+    .logo-sub {
+      font-size: 0.62rem; font-weight: 500; letter-spacing: 2px;
+      color: var(--teal); text-transform: uppercase; display: block;
+    }
+    .nav-links { display: flex; gap: 0.2rem; align-items: center; flex-wrap: wrap; }
+    .nav-link {
+      color: #94a3b8; font-size: 0.875rem; font-weight: 500; cursor: pointer;
+      padding: 0.45rem 0.95rem; border-radius: 8px; transition: all 0.18s;
+    }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-link.active {
+      color: #fff; background: rgba(14,165,160,0.25);
+      border: 1px solid rgba(14,165,160,0.4);
+    }
+    .nav-admin-btn {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: white; border: none; padding: 0.45rem 1.15rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.875rem; cursor: pointer; font-family: inherit;
+      box-shadow: 0 2px 8px rgba(14,165,160,0.3);
+      transition: all 0.18s;
+      margin-left: 0.5rem;
+    }
+    .nav-admin-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(14,165,160,0.4); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0e2f2d 60%, #0c3a36 100%);
+      padding: 5rem 2rem 4.5rem;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 2rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(14,165,160,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-text { max-width: 540px; position: relative; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(14,165,160,0.18); border: 1px solid rgba(14,165,160,0.35);
+      color: var(--teal); letter-spacing: 2px; font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 999px;
+      margin-bottom: 1.3rem;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.2rem; font-weight: 400; color: white;
+      line-height: 1.15; margin-bottom: 1.1rem;
+    }
+    .hero h1 em { color: var(--teal); font-style: italic; }
+    .hero p { color: #94a3b8; margin-bottom: 2rem; font-size: 1rem; line-height: 1.7; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-emoji { font-size: 6.5rem; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3)); }
+
+    /* ── SECTIONS ── */
+    .section { padding: 4rem 0; }
+    .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.8rem; }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.9rem; color: var(--navy); font-weight: 400;
+    }
+    .section-link { font-size: 0.85rem; color: var(--teal); font-weight: 600; cursor: pointer; }
+    .section-link:hover { text-decoration: underline; }
+
+    /* ── PRODUCT CARDS ── */
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+    .product-card {
+      background: var(--surface); border-radius: var(--radius-lg);
+      border: 1px solid var(--border); transition: all 0.22s; overflow: hidden; cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--teal-mid);
+    }
+    .product-img {
+      height: 145px; background: linear-gradient(135deg, #e8f7f7 0%, #d0f0ef 100%);
+      display: flex; align-items: center; justify-content: center; font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .product-badge {
+      position: absolute; top: 10px; right: 10px;
+      background: white; border-radius: 999px; padding: 0.2rem 0.65rem;
+      font-size: 0.68rem; font-weight: 700; color: var(--teal-dark);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    .product-info { padding: 1rem 1.1rem 1.2rem; }
+    .product-name { font-weight: 700; font-size: 1rem; color: var(--navy); }
+    .product-local { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+    .product-price-row { display: flex; justify-content: space-between; align-items: center; margin: 0.5rem 0 0.9rem; flex-wrap: wrap; gap: 6px; }
+    .price-kg { font-weight: 800; color: var(--teal-dark); font-size: 1.05rem; }
+    .price-box {
+      font-size: 0.72rem; background: var(--gray-100);
+      padding: 0.2rem 0.55rem; border-radius: 999px; color: var(--gray-700);
+    }
+
+    /* ── ORDER PAGE ── */
+    .order-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .form-card {
+      background: var(--surface); border-radius: var(--radius-lg);
+      border: 1px solid var(--border); padding: 1.8rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .form-card h3 {
+      font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+      margin-bottom: 1.2rem; color: var(--navy);
+    }
+    .cart-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.75rem 0.9rem; background: var(--gray-50); border-radius: 10px;
+      margin-bottom: 0.55rem; border: 1px solid var(--gray-100);
+    }
+    .cart-qty-btn {
+      background: white; border: 1.5px solid var(--border);
+      width: 28px; height: 28px; border-radius: 7px; font-weight: 700;
+      cursor: pointer; font-size: 0.9rem;
+      transition: all 0.15s;
+    }
+    .cart-qty-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .cart-total { font-size: 1.6rem; font-weight: 800; color: var(--teal-dark); }
+    .summary-card {
+  background: linear-gradient(160deg, var(--navy-mid) 0%, var(--navy-soft) 100%);
+  color: white; border-radius: var(--radius-lg); padding: 1.8rem;
+}
+.summary-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 1rem; color: white; }
+.summary-card .cart-total { color: var(--teal-light); font-size: 1.6rem; font-weight: 800; }
+.summary-card .cart-item { color: white; border-bottom-color: rgba(255,255,255,0.2); }
+.summary-card .cart-item span { color: white; }
+.summary-card p { color: rgba(255,255,255,0.8); }
+.summary-card hr { border-color: rgba(255,255,255,0.2); }
+.summary-card small { color: rgba(255,255,255,0.7); }
+.summary-card span { color: white; }
+    .radio-group { display: flex; gap: 0.8rem; margin: 0.5rem 0 1rem; flex-wrap: wrap; }
+    .radio-label {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--gray-100); padding: 0.55rem 1.1rem;
+      border-radius: 999px; cursor: pointer; border: 1.5px solid var(--gray-200);
+      font-size: 0.875rem; font-weight: 500; transition: all 0.18s;
+    }
+    .radio-label.selected { background: var(--teal-light); border-color: var(--teal); color: var(--teal-dark); font-weight: 600; }
+
+    /* ── ADMIN ── */
+    .admin-container { display: flex; min-height: 100vh; background: #ecf2f2; }
+    .admin-sidebar {
+      width: 240px; flex-shrink: 0;
+      background: var(--navy);
+      color: white; padding: 1.5rem 1rem;
+      display: flex; flex-direction: column;
+    }
+    .admin-sidebar-brand {
+      padding: 0.5rem 0.5rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 1rem;
+    }
+    .admin-sidebar-brand strong { font-size: 0.95rem; color: #fff; }
+    .admin-sidebar-brand small { font-size: 0.78rem; color: var(--teal); display: block; margin-top: 2px; }
+    .sidebar-section-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 2px;
+      color: #4a7070; text-transform: uppercase;
+      padding: 0 0.6rem; margin: 0.8rem 0 0.3rem;
+    }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0.65rem 0.8rem; border-radius: 10px;
+      margin-bottom: 0.15rem; cursor: pointer;
+      transition: all 0.18s; color: #7a9e9c; font-size: 0.875rem; font-weight: 500;
+    }
+    .sidebar-item .si-icon { font-size: 1rem; flex-shrink: 0; }
+    .sidebar-item:hover { background: rgba(14,165,160,0.12); color: #cfe8e8; }
+    .sidebar-item.active {
+      background: rgba(14,165,160,0.2);
+      color: #fff;
+      border: 1px solid rgba(14,165,160,0.3);
+    }
+    .admin-main { flex: 1; padding: 2rem; overflow-x: auto; }
+    .admin-page-title {
+      font-family: 'DM Serif Display', serif; font-size: 1.6rem;
+      color: var(--navy); margin-bottom: 1.5rem; font-weight: 400;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card {
+      background: var(--surface); border-radius: var(--radius); padding: 1.3rem 1.4rem;
+      border: 1px solid var(--border); position: relative; overflow: hidden;
+    }
+    .stat-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--teal) 0%, var(--teal-dark) 100%);
+    }
+    .stat-card h3 { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+    .stat-card p { font-size: 1.9rem; font-weight: 800; color: var(--navy); }
+
+    /* ── FORMS ── */
+    .form-group { margin-bottom: 1rem; }
+    label { font-weight: 600; font-size: 0.8rem; color: var(--gray-700); letter-spacing: 0.01em; }
+    input, select, textarea {
+      width: 100%; padding: 0.65rem 0.9rem;
+      border-radius: var(--radius-sm); border: 1.5px solid var(--gray-200);
+      font-family: inherit; font-size: 0.875rem; margin-top: 5px;
+      background: #fff; color: var(--navy);
+      transition: border-color 0.18s, box-shadow 0.18s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(14,165,160,0.12);
+    }
+
+    /* ── TABLE ── */
+    .table-wrap { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    table { width: 100%; background: white; border-collapse: collapse; }
+    thead { background: var(--gray-50); }
+    th { padding: 0.85rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+    td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--gray-100); font-size: 0.875rem; color: var(--gray-700); }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: #f9fcfc; }
+    .badge { display: inline-flex; align-items: center; padding: 0.22rem 0.7rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; }
+    .badge-pending { background: #fef9c3; color: #a16207; }
+    .badge-confirmed { background: #d1fae5; color: #065f46; }
+    .badge-processing { background: #dbeafe; color: #1d4ed8; }
+    .badge-cancelled { background: #fee2e2; color: #991b1b; }
+
+    /* ── ABOUT ── */
+    .about-hero { background: linear-gradient(135deg, var(--navy) 0%, #0e2f2d 100%); padding: 3.5rem 2rem; text-align: center; }
+    .about-hero h2 { font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: white; margin-bottom: 0.5rem; font-weight: 400; }
+    .about-hero p { color: var(--teal); font-size: 1.1rem; font-weight: 500; }
+    .about-body { max-width: 820px; margin: 0 auto; }
+    .about-body p { color: var(--gray-700); font-size: 0.97rem; line-height: 1.8; margin-bottom: 1.2rem; }
+    .about-tagline { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--teal-dark); font-weight: 400; font-style: italic; text-align: center; margin: 2rem 0 0.5rem; }
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.1rem; margin: 2rem 0; }
+    .value-card {
+      background: linear-gradient(135deg, #e8f7f7 0%, #d4f1f0 100%);
+      border-radius: var(--radius); padding: 1.3rem; text-align: center;
+      border: 1px solid var(--teal-mid);
+    }
+    .value-card .icon { font-size: 2rem; margin-bottom: 0.55rem; }
+    .value-card h4 { color: var(--teal-dark); font-weight: 700; margin-bottom: 0.3rem; }
+    .value-card p { color: var(--gray-700); font-size: 0.83rem; margin: 0; }
+
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+    .contact-info-card { background: var(--navy); color: white; border-radius: var(--radius-lg); padding: 2rem; }
+    .contact-info-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--teal); font-weight: 400; }
+    .contact-row { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.4rem; }
+    .contact-icon { font-size: 1.4rem; margin-top: 2px; flex-shrink: 0; }
+    .contact-label { font-size: 0.7rem; color: #7a9e9c; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.25rem; font-weight: 600; }
+    .contact-value { color: #e2e8f0; font-size: 0.92rem; }
+    .contact-value a { color: var(--teal); text-decoration: none; }
+    .contact-value a:hover { text-decoration: underline; }
+    .fb-links { display: flex; flex-direction: column; gap: 0.35rem; }
+    @media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    /* ── POSTS ── */
+    .posts-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: 1.4rem; margin-top: 1.5rem; }
+    .post-card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.22s; }
+    .post-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--teal-mid); }
+    .post-card-img { width: 100%; height: 200px; object-fit: cover; display: block; background: var(--teal-light); }
+    .post-card-img-placeholder { width: 100%; height: 200px; background: linear-gradient(135deg, #e8f7f7 0%, #d0f0ef 100%); display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+    .post-card-body { padding: 1rem 1.1rem; }
+    .post-card-tag { font-size: 0.68rem; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 0.35rem; }
+    .post-card-title { font-weight: 700; font-size: 1rem; color: var(--navy); margin-bottom: 0.3rem; }
+    .post-card-desc { font-size: 0.83rem; color: var(--gray-500); margin-bottom: 0.55rem; line-height: 1.55; }
+    .post-card-price { font-weight: 800; color: var(--teal-dark); font-size: 0.97rem; }
+    .post-card-date { font-size: 0.7rem; color: #aaa; margin-top: 0.35rem; }
+    .post-admin-card { background: white; border-radius: var(--radius); border: 1px solid var(--border); padding: 1rem; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 0.7rem; }
+    .post-admin-thumb { width: 78px; height: 78px; border-radius: 10px; background: var(--teal-light); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 2.3rem; overflow: hidden; }
+    .post-admin-thumb img { width: 78px; height: 78px; object-fit: cover; border-radius: 10px; }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 3rem 2rem; }
+    .about-strip-inner { max-width: 820px; margin: 0 auto; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
+    .about-strip-icon { font-size: 3.5rem; flex-shrink: 0; }
+    .about-strip-text h3 { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--navy); margin-bottom: 0.5rem; font-weight: 400; }
+    .about-strip-text p { color: var(--gray-700); font-size: 0.93rem; line-height: 1.7; }
+
+    /* ── FEATURES ROW ── */
+    .features-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 2.5rem 0; }
+    .feature-item {
+      background: white; border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 1.3rem; text-align: center;
+      transition: box-shadow 0.18s;
+    }
+    .feature-item:hover { box-shadow: var(--shadow); }
+    .feature-icon { font-size: 2rem; margin-bottom: 0.7rem; }
+    .feature-title { font-weight: 700; color: var(--navy); font-size: 0.92rem; margin-bottom: 0.25rem; }
+    .feature-desc { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ── MISC ── */
+    @media (max-width: 800px) {
+      .order-layout { grid-template-columns: 1fr; }
+      .navbar { height: auto; flex-direction: column; gap: 10px; padding: 0.8rem 1.2rem; }
+      .hero h1 { font-size: 2.2rem; }
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+    .anim { animation: fadeUp 0.45s ease forwards; }
+
+    /* ---- CUSTOM MODAL ---- */
+    .jmodal-overlay {
+      position:fixed; inset:0; background:rgba(13,31,30,0.55); z-index:9999;
+      display:flex; align-items:center; justify-content:center; padding:1rem;
+      animation: fadeIn 0.15s ease;
+    }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .jmodal {
+      background:white; border-radius:var(--radius-lg); padding:2rem;
+      max-width:420px; width:100%; box-shadow:0 20px 60px rgba(14,165,160,0.2);
+      animation: slideUp 0.2s ease;
+    }
+    @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+    .jmodal-icon { font-size:2.5rem; text-align:center; margin-bottom:0.8rem; }
+    .jmodal-title { font-family:'DM Serif Display',serif; font-size:1.3rem; color:var(--navy); text-align:center; margin-bottom:0.5rem; }
+    .jmodal-msg { color:var(--gray-500); font-size:0.9rem; text-align:center; line-height:1.6; margin-bottom:1.5rem; }
+    .jmodal-btn { width:100%; padding:0.75rem; border:none; border-radius:999px; font-weight:600; font-size:0.95rem; cursor:pointer; font-family:inherit; }
+    .jmodal-btn-primary { background:linear-gradient(135deg,var(--teal),var(--teal-dark)); color:white; box-shadow:0 3px 10px rgba(14,165,160,0.35); }
+    .jmodal-btn-primary:hover { transform:translateY(-1px); }
+
+    /* ---- ORDER TRACKER ---- */
+    .tracker-wrap { max-width: 560px; margin: 0 auto; }
+    .tracker-input-row { display:flex; gap:0.8rem; margin-bottom:2rem; }
+    .tracker-input-row input { flex:1; padding:0.75rem 1rem; border-radius:999px; border:1.5px solid var(--border); font-family:inherit; font-size:0.95rem; }
+    .tracker-input-row input:focus { outline:none; border-color:var(--teal); }
+    .tracker-card { background:white; border-radius:var(--radius-lg); border:1px solid var(--border); padding:1.8rem; box-shadow:var(--shadow); }
+    .tracker-status-row { display:flex; align-items:center; gap:1rem; margin:1.2rem 0; }
+    .tracker-badge { padding:0.4rem 1.1rem; border-radius:999px; font-weight:700; font-size:0.85rem; }
+    .badge-pending { background:#fef9c3; color:#854d0e; }
+    .badge-confirmed { background:#d1fae5; color:#065f46; }
+    .badge-processing { background:#dbeafe; color:#1e40af; }
+    .badge-cancelled { background:#fee2e2; color:#991b1b; }
+    .tracker-timeline { display:flex; gap:0; margin:1.5rem 0; }
+    .tl-step { flex:1; text-align:center; position:relative; }
+    .tl-step:not(:last-child)::after { content:''; position:absolute; top:14px; left:50%; width:100%; height:3px; background:var(--gray-200); z-index:0; }
+    .tl-step.done:not(:last-child)::after { background:var(--teal); }
+    .tl-dot { width:28px; height:28px; border-radius:50%; background:var(--gray-200); border:3px solid white; box-shadow:0 0 0 2px var(--gray-200); margin:0 auto 0.5rem; position:relative; z-index:1; display:flex; align-items:center; justify-content:center; font-size:0.75rem; }
+    .tl-step.done .tl-dot { background:var(--teal); box-shadow:0 0 0 2px var(--teal); color:white; }
+    .tl-step.cancelled .tl-dot { background:#ef4444; box-shadow:0 0 0 2px #ef4444; color:white; }
+    .tl-label { font-size:0.7rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.3px; }
+    .tl-step.done .tl-label { color:var(--teal-dark); }
+    .tracker-row { display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--gray-100); font-size:0.875rem; }
+    .tracker-row:last-child { border-bottom:none; }
+    .tracker-row span:first-child { color:var(--text-muted); }
+    .tracker-row span:last-child { font-weight:600; color:var(--navy); }
+
+    /* Product image thumb for admin */
+    .product-thumb {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: var(--teal-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+    .product-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    /* Edit Modal */
+    .edit-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1001;
+      align-items: center;
+      justify-content: center;
+    }
+    .edit-modal-content {
+      background: white;
+      max-width: 500px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: 20px;
+      padding: 1.8rem;
+    }
+  </style>
+</head>
+<body>
+<div id="app"></div>
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import {
+    getFirestore, collection, getDocs, addDoc, setDoc, doc,
+    deleteDoc, updateDoc, onSnapshot, query, orderBy, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+  import {
+    getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAzPbPwo2tSXpdlZJ0nA80omU77-6Mipn0",
+    authDomain: "jeepia.firebaseapp.com",
+    projectId: "jeepia",
+    storageBucket: "jeepia.firebasestorage.app",
+    messagingSenderId: "284481808649",
+    appId: "1:284481808649:web:6064bf0cf89769ebb1cbd8",
+    measurementId: "G-KKQNLZJL9N"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  // ---- DEFAULT SEED PRODUCTS ----
+  const DEFAULT_PRODUCTS = [
+    { name:'Galunggong', local:'Round Scad', category:'Fish', priceKg:160, sellByBox:true, priceBox:4800, kgPerBox:30, emoji:'🐟', isAvailable:true, description:'Fresh catch, perfect for frying.', imageUrl:'' },
+    { name:'Bangus', local:'Milkfish', category:'Fish', priceKg:180, sellByBox:true, priceBox:5400, kgPerBox:30, emoji:'🐠', isAvailable:true, description:'National fish, ideal for grilling.', imageUrl:'' },
+    { name:'Tilapia', local:'Tilapia', category:'Fish', priceKg:150, sellByBox:true, priceBox:4500, kgPerBox:30, emoji:'🐡', isAvailable:true, description:'Freshwater favorite.', imageUrl:'' },
+    { name:'Hipon', local:'Tiger Shrimp', category:'Shrimp', priceKg:280, sellByBox:true, priceBox:9800, kgPerBox:35, emoji:'🦐', isAvailable:true, description:'Large, sweet shrimp.', imageUrl:'' },
+    { name:'Pusit', local:'Squid', category:'Squid', priceKg:220, sellByBox:true, priceBox:7700, kgPerBox:35, emoji:'🦑', isAvailable:true, description:'Fresh squid, tender.', imageUrl:'' },
+    { name:'Alimango', local:'Mud Crab', category:'Crab', priceKg:380, sellByBox:false, priceBox:0, kgPerBox:0, emoji:'🦀', isAvailable:true, description:'Live crabs.', imageUrl:'' },
+    { name:'Tuna', local:'Yellowfin', category:'Fish', priceKg:240, sellByBox:true, priceBox:7200, kgPerBox:30, emoji:'🐟', isAvailable:true, description:'Premium sashimi grade.', imageUrl:'' },
+    { name:'Tahong', local:'Mussels', category:'Shellfish', priceKg:120, sellByBox:false, priceBox:0, kgPerBox:0, emoji:'🦪', isAvailable:true, description:'Fresh mussels.', imageUrl:'' }
+  ];
+  const DEFAULT_POSTS = [
+    { title:"Today's Fresh Galunggong!", tag:"Today's Catch", desc:"Just arrived this morning — super sariwa! Perfect for frying. ₱160/kg or ₱4,800/box (30kg).", price:"₱160/kg", emoji:"🐟", imageUrl:"" },
+    { title:"Tiger Shrimp Available Now", tag:"Fresh Stock", desc:"Large, sweet tiger shrimp available today. Order fast — limited stocks only!", price:"₱280/kg", emoji:"🦐", imageUrl:"" }
+  ];
+
+  // ---- FIRESTORE DB WRAPPER ----
+  window._cache = { products: [], orders: [], posts: [], inquiries: [] };
+  window._loaded = { products: false, orders: false, posts: false, inquiries: false };
+
+  async function fsLoad(colName) {
+    const snap = await getDocs(collection(db, colName));
+    const docs = snap.docs.map(d => ({ ...d.data(), _id: d.id }));
+    window._cache[colName] = docs;
+    window._loaded[colName] = true;
+    return docs;
+  }
+
+  async function fsSeed() {
+    const prodSnap = await getDocs(collection(db, 'products'));
+    if (prodSnap.empty) {
+      for (const p of DEFAULT_PRODUCTS) await addDoc(collection(db, 'products'), p);
+    }
+    const postSnap = await getDocs(collection(db, 'posts'));
+    if (postSnap.empty) {
+      for (const p of DEFAULT_POSTS) await addDoc(collection(db, 'posts'), { ...p, postedAt: serverTimestamp() });
+    }
+  }
+
+  async function fsAddDoc(colName, data) {
+    const ref = await addDoc(collection(db, colName), { ...data, createdAt: serverTimestamp() });
+    const newDoc = { ...data, _id: ref.id };
+    window._cache[colName].push(newDoc);
+    return newDoc;
+  }
+
+  async function fsUpdateDoc(colName, _id, fields) {
+    await setDoc(doc(db, colName, _id), fields, { merge: true });
+    if(colName === 'calendar') { window._cache['calendar'] = fields.data || {}; return; }
+    const idx = window._cache[colName].findIndex(d => d._id === _id);
+    if (idx >= 0) window._cache[colName][idx] = { ...window._cache[colName][idx], ...fields };
+  }
+
+  async function fsDeleteDoc(colName, _id) {
+    await deleteDoc(doc(db, colName, _id));
+    window._cache[colName] = window._cache[colName].filter(d => d._id !== _id);
+  }
+
+  // Expose Firebase helpers
+  window._fs = { load: fsLoad, add: fsAddDoc, update: fsUpdateDoc, delete: fsDeleteDoc };
+  window._db = db;
+  window._auth = auth;
+  window._signIn = (email, pass) => signInWithEmailAndPassword(auth, email, pass);
+  window._signOut = () => signOut(auth);
+  window._onAuthChanged = (cb) => onAuthStateChanged(auth, cb);
+
+  // ---- BOOT ----
+  async function boot() {
+    document.getElementById('app').innerHTML = '<div style="text-align:center;padding:4rem;font-size:1.1rem;color:#0ea5a0;">🐟 Loading JEEPIA...</div>';
+    try {
+      await fsSeed();
+      await Promise.all(['products','orders','posts','inquiries'].map(c => fsLoad(c)));
+      // Load calendar settings
+      try {
+        const { getDoc, doc } = await import("https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js");
+        const snap = await getDoc(doc(db, 'settings', 'calendar'));
+        window._cache['calendar'] = snap.exists() ? (snap.data().data || {}) : {};
+      } catch(e) { window._cache['calendar'] = {}; }
+      window._appReady = true;
+      window.render('home');
+    } catch(e) {
+      console.error('Firebase boot error:', e);
+      document.getElementById('app').innerHTML = `<div style="text-align:center;padding:4rem;color:#ef4444;"><strong>⚠ Could not connect to database.</strong><br><small>${e.message}</small></div>`;
+    }
+  }
+  window._boot = boot;
+</script>
+
+<script>
+  // ---- CUSTOM MODAL (replaces alert) ----
+  function showModal(msg, type='info') {
+    const existing = document.getElementById('jmodal-overlay');
+    if(existing) existing.remove();
+    const icons = { success:'✅', error:'⚠️', info:'🐟' };
+    const titles = { success:'Success', error:'Oops!', info:'Notice' };
+    if(msg.startsWith('✅')) type='success';
+    if(msg.startsWith('⚠') || msg.toLowerCase().includes('failed') || msg.toLowerCase().includes('error')) type='error';
+    const cleanMsg = msg.replace(/^[✅⚠️🐟]\s*/,'');
+    const overlay = document.createElement('div');
+    overlay.id = 'jmodal-overlay';
+    overlay.className = 'jmodal-overlay';
+    overlay.innerHTML = `<div class="jmodal">
+      <div class="jmodal-icon">${icons[type]}</div>
+      <div class="jmodal-title">${titles[type]}</div>
+      <div class="jmodal-msg">${cleanMsg}</div>
+      <button class="jmodal-btn jmodal-btn-primary" onclick="document.getElementById('jmodal-overlay').remove()">OK</button>
+    </div>`;
+    overlay.addEventListener('click', e => { if(e.target===overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+  }
+  window.alert = showModal;
+
+  function showConfirm(msg, onYes) {
+    const existing = document.getElementById('jmodal-overlay');
+    if(existing) existing.remove();
+    const overlay = document.createElement('div');
+    overlay.id = 'jmodal-overlay';
+    overlay.className = 'jmodal-overlay';
+    overlay.innerHTML = `<div class="jmodal">
+      <div class="jmodal-icon">🤔</div>
+      <div class="jmodal-title">Are you sure?</div>
+      <div class="jmodal-msg">${msg}</div>
+      <div style="display:flex;gap:0.8rem;">
+        <button class="jmodal-btn" style="background:#f1f5f9;color:var(--navy);" onclick="document.getElementById('jmodal-overlay').remove()">Cancel</button>
+        <button class="jmodal-btn jmodal-btn-primary" id="jmodal-confirm-yes">Yes, proceed</button>
+      </div>
+    </div>`;
+    document.body.appendChild(overlay);
+    document.getElementById('jmodal-confirm-yes').onclick = () => { overlay.remove(); onYes(); };
+  }
+
+  let DB = {
+    get(key) {
+      const data = window._cache?.[key];
+      if (!data) return null;
+      return JSON.parse(JSON.stringify(data));
+    },
+    set(key, val) {
+      window._cache[key] = JSON.parse(JSON.stringify(val));
+    },
+    init() {}
+  };
+
+  let currentAdmin = null;
+
+  async function login(email, pass) {
+    try {
+      const cred = await window._signIn(email, pass);
+      const displayName = cred.user.displayName || cred.user.email.split('@')[0];
+      currentAdmin = { display: displayName, email: cred.user.email, uid: cred.user.uid };
+      return true;
+    } catch(e) {
+      console.error('Login error:', e.code);
+      return false;
+    }
+  }
+
+  async function logout() {
+    await window._signOut();
+    currentAdmin = null;
+    render('home');
+  }
+
+  let orderCart = [];
+  let cartTotal = 0;
+  function recalcCartTotal() {
+    const products = DB.get('products') || [];
+    let sum = 0;
+    orderCart.forEach(item => {
+      const prod = products.find(p => (p._id||p.id)===item.productId || String(p._id||p.id)===String(item.productId));
+      if(!prod) return;
+      if(item.unitType==='kg') sum += (prod.priceKg||0)*item.qty;
+      else if(item.unitType==='box' && prod.sellByBox) sum += (prod.priceBox||0)*item.qty;
+    });
+    cartTotal = sum;
+    return cartTotal;
+  }
+  function addToCart(productId, unitType, qty=1) {
+    const products = DB.get('products') || [];
+    const prod = products.find(p => (p._id||p.id)===productId || String(p._id||p.id)===String(productId));
+    if(!prod || !prod.isAvailable) return false;
+    if(unitType==='box' && !prod.sellByBox) return false;
+    const existing = orderCart.find(i => i.productId===productId && i.unitType===unitType);
+    if(existing) existing.qty += qty;
+    else orderCart.push({ productId, unitType, qty });
+    recalcCartTotal();
+    return true;
+  }
+  function updateCartQty(idx, delta) { if(!orderCart[idx]) return; orderCart[idx].qty = Math.max(1, orderCart[idx].qty+delta); recalcCartTotal(); render('order'); }
+  function removeCartItem(idx) { orderCart.splice(idx,1); recalcCartTotal(); render('order'); }
+
+  let currentPage = 'home';
+  let adminActiveTab = 'dashboard';
+  let productFilterCat = 'All';
+
+  function render(page) {
+    currentPage = page;
+    const app = document.getElementById('app');
+    if(page==='admin') {
+      if(!currentAdmin) { app.innerHTML = renderLogin(); attachLoginEvents(); return; }
+      app.innerHTML = renderAdminLayout();
+      attachAdminEvents();
+    } else {
+      app.innerHTML = renderPublicLayout();
+      attachPublicEvents();
+    }
+  }
+
+  function renderPublicLayout() {
+    let mainContent = '';
+    if(currentPage==='home') mainContent = renderHome();
+    else if(currentPage==='products') mainContent = renderProductsPage();
+    else if(currentPage==='order') mainContent = renderOrderPage();
+    else if(currentPage==='delivery') mainContent = renderDeliveryInfo();
+    else if(currentPage==='about') mainContent = renderAbout();
+    else if(currentPage==='contact') mainContent = renderContactPage();
+    else if(currentPage==='tracker') mainContent = renderTrackerPage();
+    else mainContent = renderHome();
+    return `
+      <nav class="navbar">
+        <div class="logo" onclick="render('home')">
+          <div class="logo-icon">🐟</div>
+          <div class="logo-text">
+            <div class="logo-name">JEEPIA Fish Station</div>
+            <span class="logo-sub">Ocean Fresh Seafoods</span>
+          </div>
+        </div>
+        <div class="nav-links">
+          ${['home','products','order','delivery','about','contact','tracker'].map(p =>
+            `<div class="nav-link ${currentPage===p?'active':''}" onclick="render('${p}')">${
+              {home:'Home',products:'Products',order:'Order Now',delivery:'Delivery',about:'About',contact:'Contact',tracker:'Track Order'}[p]
+            }</div>`).join('')}
+          <button class="nav-admin-btn" onclick="render('admin')">⚙ Admin</button>
+        </div>
+      </nav>
+      <div id="public-main">${mainContent}</div>
+      <footer style="background:var(--navy); color:#4a7070; text-align:center; padding:2.5rem; margin-top:3rem; border-top:1px solid rgba(255,255,255,0.06);">
+        <p style="font-size:0.9rem; color:#6a9090;">© 2025 JEEPIA Fish Station · Cebu, Philippines · Fresh Daily</p>
+        <p style="margin-top:0.4rem; font-size:0.8rem; color:#3d6060; letter-spacing:1px; text-transform:uppercase;">Fresh Catch · Fair Prices · Fast Delivery</p>
+      </footer>
+    `;
+  }
+
+  function renderHome() {
+    const products = (DB.get('products')||[]).filter(p=>p.isAvailable).slice(0,4);
+    return `
+      <div class="hero">
+        <div class="hero-text anim">
+          <div class="hero-tag">🌊 Fresh from the Ocean · Est. 2019</div>
+          <h1>Premium Seafood.<br><em>Delivered</em> to your doorstep.</h1>
+          <p>Family-owned business serving Cebu with the freshest catch daily. Restaurants, hotels, resorts, and home deliveries.</p>
+          <div class="hero-cta">
+            <button class="btn btn-primary btn-lg" onclick="render('order')">Order Now →</button>
+            <button class="btn btn-outline btn-lg" onclick="render('products')" style="color:white; border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.07);">Browse Products</button>
+          </div>
+        </div>
+        <div class="hero-emoji">🐟🦐🦀</div>
+      </div>
+      <div class="about-strip">
+        <div class="about-strip-inner">
+          <div class="about-strip-icon">🏠</div>
+          <div class="about-strip-text">
+            <h3>A Trusted Family Business Since 2019</h3>
+            <p>Since 2019, JEEPIA Fish Station has been a trusted family-owned seafood supplier committed to providing fresh seafood, fair prices, and reliable service. We proudly serve households, restaurants, and businesses with quality seafood delivered with care.</p>
+            <button class="btn btn-outline" style="margin-top:1rem;" onclick="render('about')">Our Story →</button>
+          </div>
+        </div>
+      </div>
+      ${renderPostsFeed()}
+      <div class="container section">
+        <h2 class="section-title">Featured Catch</h2>
+        <div class="products-grid">${products.map(p => renderProductCardSmall(p)).join('')}</div>
+        <div style="text-align:center; margin-top:2rem;">
+          <button class="btn btn-outline" onclick="render('products')">View All Seafood</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPostsFeed() {
+    const posts = (DB.get('posts') || []).slice().reverse();
+    if(!posts.length) return '';
+    const cards = posts.map(p => {
+      const imgHtml = p.imageUrl
+        ? `<img class="post-card-img" src="${p.imageUrl}" alt="${p.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" /><div class="post-card-img-placeholder" style="display:none;">${p.emoji||'🐟'}</div>`
+        : `<div class="post-card-img-placeholder">${p.emoji||'🐟'}</div>`;
+      const dateStr = p.postedAt ? new Date(p.postedAt).toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'}) : '';
+      return `<div class="post-card">
+        ${imgHtml}
+        <div class="post-card-body">
+          <div class="post-card-tag">${p.tag||'Fresh Stock'}</div>
+          <div class="post-card-title">${p.title}</div>
+          <div class="post-card-desc">${p.desc}</div>
+          ${p.price ? `<div class="post-card-price">${p.price}</div>` : ''}
+          <div class="post-card-date">${dateStr}</div>
+          <button class="btn btn-primary btn-sm" style="margin-top:0.7rem;" onclick="render('order')">Order Now →</button>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div style="background: linear-gradient(180deg,#f0fdfa 0%,#ffffff 100%); padding: 3rem 0;">
+      <div class="container">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+          <h2 class="section-title" style="margin-bottom:0;">📢 Latest from JEEPIA</h2>
+          <span style="font-size:0.85rem; color:var(--gray-500);">Posted by admin · updated daily</span>
+        </div>
+        <p style="color:var(--gray-500); margin-top:0.3rem; font-size:0.9rem;">Fresh arrivals, daily catch, and special offers — direct from us to you.</p>
+        <div class="posts-feed">${cards}</div>
+      </div>
+    </div>`;
+  }
+
+  function renderProductCardSmall(p) {
+    const imageHtml = p.imageUrl && p.imageUrl.trim() !== ''
+      ? `<img src="${p.imageUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='${p.emoji}';">`
+      : p.emoji;
+    return `<div class="product-card">
+      <div class="product-img">${imageHtml}</div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-local">${p.local}</div>
+        <div class="product-price-row">
+          <span class="price-kg">₱${p.priceKg}/kg</span>
+          ${p.sellByBox ? `<span class="price-box">box (${p.kgPerBox}kg) ₱${p.priceBox}</span>` : ''}
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="render('order')">Order</button>
+      </div>
+    </div>`;
+  }
+
+  function renderProductsPage() {
+    let products = DB.get('products') || [];
+    let cats = ['All', ...new Set(products.map(p => p.category))];
+    if(productFilterCat !== 'All') products = products.filter(p => p.category===productFilterCat);
+    return `<div class="container section">
+      <h2 class="section-title">Our Seafood Selection</h2>
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:2rem;">
+        ${cats.map(c => `<button class="cat-filter ${productFilterCat===c?'active':''}" data-cat="${c}"
+          style="padding:0.4rem 1rem; border-radius:2rem; border:1px solid var(--gray-200); cursor:pointer;
+          background:${productFilterCat===c?'var(--teal)':'white'}; color:${productFilterCat===c?'white':'var(--gray-700)'};">${c}</button>`).join('')}
+      </div>
+      <div class="products-grid">${products.map(p => renderProductFull(p)).join('')}</div>
+    </div>`;
+  }
+
+  function renderProductFull(p) {
+    const imageHtml = p.imageUrl && p.imageUrl.trim() !== ''
+      ? `<img src="${p.imageUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='${p.emoji}';">`
+      : p.emoji;
+    return `<div class="product-card">
+      <div class="product-img">${imageHtml}<span class="product-badge">${p.isAvailable?'Fresh':'Sold Out'}</span></div>
+      <div class="product-info">
+        <div class="product-name">${p.name} (${p.local})</div>
+        <div class="product-price-row">
+          <span class="price-kg">₱${p.priceKg}/kg</span>
+          ${p.sellByBox ? `<span class="price-box">📦 box (${p.kgPerBox}kg) ₱${p.priceBox}</span>` : ''}
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="render('order')">Place Order</button>
+      </div>
+    </div>`;
+  }
+
+  function renderOrderPage() {
+    const products = (DB.get('products')||[]).filter(p=>p.isAvailable);
+    const cartHtml = orderCart.map((item,idx) => {
+      const prod = products.find(p => (p._id||p.id)===item.productId || String(p._id||p.id)===String(item.productId));
+      if(!prod) return '';
+      const unitPrice = item.unitType==='kg' ? prod.priceKg : (prod.sellByBox ? prod.priceBox : 0);
+      const subtotal = unitPrice * item.qty;
+      const unitLabel = item.unitType==='kg' ? 'kg' : `box (${prod.kgPerBox}kg)`;
+      return `<div class="cart-item">
+        <div><strong style="color:white;">${prod.name}</strong> <span style="font-size:0.8rem; color:rgba(255,255,255,0.8);">${item.qty} ${unitLabel}</span><br/><span style="font-size:0.7rem; color:rgba(255,255,255,0.7);">₱${unitPrice}/unit</span></div>
+        <div>
+          <button class="cart-qty-btn" onclick="updateCartQty(${idx},-1)">-</button>
+          <span style="margin:0 8px; color:white;">${item.qty}</span>
+          <button class="cart-qty-btn" onclick="updateCartQty(${idx},1)">+</button>
+          <button class="cart-qty-btn" style="margin-left:12px; background:#fee2e2;" onclick="removeCartItem(${idx})">🗑</button>
+        </div>
+        <div><strong style="color:var(--teal-light);">₱${subtotal.toLocaleString()}</strong></div>
+      </div>`;
+
+    }).join('');
+    return `
+      <div class="container section">
+        <h2 class="section-title">📋 Place Your Order</h2>
+        <div class="order-layout">
+          <div class="form-card">
+            <h3>Delivery & Contact</h3>
+            <div class="form-group"><label>Delivery Date *</label><input type="date" id="orderDate" min="${new Date().toISOString().split('T')[0]}" /></div>
+            <div class="form-group"><label>Time preference</label><select id="orderTime"><option>Morning (8AM-12PM)</option><option>Afternoon (1PM-5PM)</option></select></div>
+            <div class="form-group"><label>Delivery Type</label>
+              <div class="radio-group">
+                <div class="radio-label" data-type="Business">🏢 Business / Restaurant</div>
+                <div class="radio-label" data-type="Individual">🏠 Individual</div>
+              </div>
+              <input type="hidden" id="deliveryType" value="Business">
+            </div>
+            <div class="form-group"><label>Full Name *</label><input id="custName" placeholder="Name / Business name" /></div>
+            <div class="form-group"><label>Phone *</label><input id="custPhone" placeholder="09XX XXX XXXX" /></div>
+            <div class="form-group"><label>Email *</label><input id="custEmail" type="email" placeholder="email@example.com" /></div>
+            <div class="form-group"><label>Delivery Address *</label><input id="custAddress" placeholder="Street, City, Cebu" /></div>
+            <div class="form-group"><label>Additional notes</label><textarea id="orderNotes" rows="2" placeholder="Special requests..."></textarea></div>
+            <button class="btn btn-primary btn-full" onclick="submitOrderRequest()">✓ Submit Order Request</button>
+          </div>
+          <div>
+            <div class="summary-card">
+              <h3>🛒 Your Cart</h3>
+              <div id="cartItemsList">${cartHtml || '<p style="color:rgba(255,255,255,0.7);">No items added. Select below.</p>'}</div>
+              <hr style="margin:1rem 0; border-color:#334155;">
+              <div style="display:flex; justify-content:space-between;"><span>Estimated Total:</span><span class="cart-total">₱${cartTotal.toLocaleString()}</span></div>
+              <small>Final total confirmed upon verification</small>
+            </div>
+            <div class="form-card" style="margin-top:1rem;">
+              <h4>➕ Add products (kg or box)</h4>
+              <div class="form-group"><label>Select Product</label>
+                <select id="addProductSelect">
+                  ${products.map(p => `<option value="${p._id||p.id}">${p.emoji} ${p.name} — ₱${p.priceKg}/kg ${p.sellByBox?`| box ₱${p.priceBox} (${p.kgPerBox}kg)`:''}</option>`).join('')}
+                </select>
+              </div>
+              <div class="form-group"><label>Unit Type</label>
+                <select id="unitTypeSelect"><option value="kg">Kilogram (kg)</option><option value="box">Box (bulk)</option></select>
+              </div>
+              <div class="form-group"><label>Quantity</label><input type="number" id="itemQty" value="1" min="1" /></div>
+              <button class="btn btn-outline" onclick="addCartFromSelector()">➕ Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function addCartFromSelector() {
+    const select = document.getElementById('addProductSelect');
+    const prodId = select.value;
+    const unit = document.getElementById('unitTypeSelect').value;
+    let qty = parseInt(document.getElementById('itemQty').value);
+    if(isNaN(qty)||qty<1) qty=1;
+    const success = addToCart(prodId, unit, qty);
+    if(success) render('order');
+    else alert("Unable to add: product unavailable or box not allowed.");
+  }
+
+  async function submitOrderRequest() {
+    const name = document.getElementById('custName')?.value.trim();
+    const phone = document.getElementById('custPhone')?.value.trim();
+    const email = document.getElementById('custEmail')?.value.trim();
+    const address = document.getElementById('custAddress')?.value.trim();
+    const deliveryDate = document.getElementById('orderDate')?.value;
+    const deliveryTime = document.getElementById('orderTime')?.value;
+    const deliveryType = document.getElementById('deliveryType')?.value;
+    const notes = document.getElementById('orderNotes')?.value;
+    if(!name||!phone||!email||!address||!deliveryDate) { alert("Please fill required fields: Name, Phone, Email, Address, Delivery Date"); return; }
+    if(orderCart.length===0) { alert("Add at least one product to cart"); return; }
+    const productsAll = DB.get('products') || [];
+    const itemsSummary = orderCart.map(it => {
+      const p = productsAll.find(pr => pr._id===it.productId || pr.id===it.productId);
+      return `${p?.name} ${it.qty}${it.unitType==='kg'?'kg':` box (${p?.kgPerBox}kg)`}`;
+    }).join(', ');
+    const orders = DB.get('orders') || [];
+    const newId = "ORD-" + String(orders.length+101).padStart(4,'0');
+    const orderData = {
+      id:newId, customer:name, email, phone, address, type:deliveryType,
+      deliveryDate, preferredTime:deliveryTime, items:itemsSummary,
+      cartSnapshot:JSON.parse(JSON.stringify(orderCart)),
+      total:cartTotal, status:'Pending', notes
+    };
+    try {
+      await window._fs.add('orders', orderData);
+      orderCart = [];
+      recalcCartTotal();
+      alert(`🎉 Order Submitted Successfully!
+
+🔖 Reference Number:
+${newId}
+
+📦 Track your order anytime using this reference number.
+
+⏱ We will review your order and contact you within 24 hours.
+
+Thank you for choosing JEEPIA Fish Station 🐟`);
+      render('tracker');
+    } catch(e) {
+      alert(`⚠️ Order Submission Failed
+
+We couldn't process your order at this time.
+
+Please try again in a few moments or contact JEEPIA Fish Station for assistance.`);
+      console.error(e);
+    }
+  }
+
+  // ---- CALENDAR HELPERS ----
+  function getCalendarData() { return DB.get('calendar') || {}; }
+
+  function renderCalendarWidget(readOnly=true) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const calData = getCalendarData();
+    const monthKey = `${year}-${String(month+1).padStart(2,'0')}`;
+    const nextMonthKey = `${year}-${String(month+2).padStart(2,'0')}`;
+
+    function buildMonth(y, m) {
+      const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const firstDay = new Date(y, m, 1).getDay();
+      const daysInMonth = new Date(y, m+1, 0).getDate();
+      const mk = `${y}-${String(m+1).padStart(2,'0')}`;
+      let cells = '';
+      for(let i=0; i<firstDay; i++) cells += `<div></div>`;
+      for(let d=1; d<=daysInMonth; d++) {
+        const dk = `${mk}-${String(d).padStart(2,'0')}`;
+        const isPast = new Date(y,m,d) < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const isToday = d===today.getDate() && m===today.getMonth() && y===today.getFullYear();
+        const status = calData[dk] || 'available';
+        let bg = '#e0fdf4'; let color = '#065f46'; let label = 'Open';
+        if(isPast) { bg='#f3f4f6'; color='#9ca3af'; label=''; }
+        else if(status==='booked') { bg='#fee2e2'; color='#991b1b'; label='Full'; }
+        else if(status==='unavailable') { bg='#e5e7eb'; color='#6b7280'; label='Unavailable'; }
+        else if(status==='limited') { bg='#fef9c3'; color='#854d0e'; label='Limited'; }
+        const todayBorder = isToday ? 'border:2px solid var(--teal);' : 'border:1px solid #e5e7eb;';
+        const clickAttr = readOnly ? '' : `onclick="toggleCalDay('${dk}')" style="cursor:pointer;"`;
+        cells += `<div ${clickAttr} style="background:${bg}; border-radius:8px; padding:4px 2px; text-align:center; ${todayBorder}">
+          <div style="font-weight:700; font-size:0.9rem; color:${color};">${d}</div>
+          ${!isPast && label ? `<div style="font-size:0.58rem; font-weight:600; color:${color}; text-transform:uppercase;">${label}</div>` : ''}
+        </div>`;
+      }
+      return `<div style="flex:1; min-width:280px;">
+        <div style="font-weight:700; font-size:1rem; color:var(--navy); margin-bottom:0.8rem; text-align:center;">${monthNames[m]} ${y}</div>
+        <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:4px;">
+          ${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>`<div style="text-align:center;font-size:0.7rem;font-weight:600;color:var(--text-muted);">${d}</div>`).join('')}
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px;">${cells}</div>
+      </div>`;
+    }
+
+    const legend = `<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.2rem; font-size:0.8rem;">
+      <span><span style="display:inline-block;width:12px;height:12px;background:#e0fdf4;border-radius:3px;border:1px solid #6ee7b7;margin-right:4px;"></span>Available</span>
+      <span><span style="display:inline-block;width:12px;height:12px;background:#fef9c3;border-radius:3px;border:1px solid #fde047;margin-right:4px;"></span>Limited slots</span>
+      <span><span style="display:inline-block;width:12px;height:12px;background:#fee2e2;border-radius:3px;border:1px solid #fca5a5;margin-right:4px;"></span>Fully booked</span>
+      <span><span style="display:inline-block;width:12px;height:12px;background:#e5e7eb;border-radius:3px;border:1px solid #9ca3af;margin-right:4px;"></span>Unavailable</span>
+    </div>`;
+
+    return `<div style="display:flex; gap:2rem; flex-wrap:wrap;">${buildMonth(year,month)}${buildMonth(year,month+1)}</div>${legend}`;
+  }
+
+  window.toggleCalDay = async function(dk) {
+    const calData = getCalendarData();
+    const cur = calData[dk] || 'available';
+    const next = cur === 'available' ? 'limited' : cur === 'limited' ? 'booked' : cur === 'booked' ? 'unavailable' : 'available';
+    calData[dk] = next;
+    try {
+      await window._fs.update('settings', 'calendar', { data: calData });
+    } catch(e) { console.error('Calendar save error:', e); }
+    refreshAdminContent();
+  };
+
+  function renderAdminCalendar() {
+    return `
+      <div class="admin-page-title">📅 Delivery Calendar</div>
+      <p style="color:var(--gray-500); margin-bottom:1.5rem; font-size:0.875rem;">Click any future date to cycle through: <strong>Available → Limited → Fully Booked → Unavailable → Available</strong>. Customers see this on the Delivery page.</p>
+      <div style="background:white; border-radius:var(--radius); border:1px solid var(--border); padding:1.5rem;">
+        ${renderCalendarWidget(false)}
+      </div>`;
+  }
+
+  function renderTrackerPage() {
+    return `<div class="container section">
+      <h2 class="section-title">📦 Track Your Order</h2>
+      <p style="color:var(--gray-500); margin-bottom:1.5rem;">Enter your order reference number to check the status of your delivery.</p>
+      <div class="tracker-wrap">
+        <div class="tracker-input-row">
+          <input id="trackerInput" placeholder="e.g. ORD-0101" onkeydown="if(event.key==='Enter') trackOrder()" />
+          <button class="btn btn-primary" onclick="trackOrder()">🔍 Track</button>
+        </div>
+        <div id="trackerResult"></div>
+      </div>
+    </div>`;
+  }
+
+  window.trackOrder = async function() {
+    const ref = document.getElementById('trackerInput')?.value.trim().toUpperCase();
+    if(!ref) { alert('Please enter your order reference number.'); return; }
+    const el = document.getElementById('trackerResult');
+    el.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--teal);">🔍 Looking up your order...</div>';
+    try {
+      let orders = DB.get('orders') || [];
+      let order = orders.find(o => (o.id||'').toUpperCase() === ref);
+      if(!order) {
+        await window._fs.load('orders');
+        orders = DB.get('orders') || [];
+        order = orders.find(o => (o.id||'').toUpperCase() === ref);
+      }
+      if(!order) {
+        el.innerHTML = `<div class="tracker-card" style="text-align:center;">
+          <div style="font-size:2.5rem;">😕</div>
+          <div style="font-weight:700; color:var(--navy); margin:0.8rem 0 0.4rem;">Order not found</div>
+          <div style="color:var(--gray-500); font-size:0.875rem;">Check your reference number and try again. It looks like <strong>ORD-XXXX</strong>.</div>
+        </div>`;
+        return;
+      }
+      const status = order.status || 'Pending';
+      const steps = ['Pending','Confirmed','Processing'];
+      const isCancelled = status === 'Cancelled';
+      const badgeClass = {Pending:'badge-pending',Confirmed:'badge-confirmed',Processing:'badge-processing',Cancelled:'badge-cancelled'}[status] || 'badge-pending';
+      const stepDoneIdx = isCancelled ? -1 : steps.indexOf(status);
+
+      const timelineHtml = isCancelled
+        ? `<div style="text-align:center; background:#fee2e2; border-radius:var(--radius); padding:1rem; color:#991b1b; font-weight:600;">❌ This order has been cancelled. Please contact us for assistance.</div>`
+        : `<div class="tracker-timeline">
+            ${steps.map((s,i) => `<div class="tl-step ${i<=stepDoneIdx?'done':''}">
+              <div class="tl-dot">${i<=stepDoneIdx?'✓':i+1}</div>
+              <div class="tl-label">${s}</div>
+            </div>`).join('')}
+            <div class="tl-step ${status==='Delivered'?'done':''}">
+              <div class="tl-dot">${status==='Delivered'?'✓':'4'}</div>
+              <div class="tl-label">Delivered</div>
+            </div>
+          </div>`;
+
+      el.innerHTML = `<div class="tracker-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+          <div style="font-family:'DM Serif Display',serif; font-size:1.2rem; color:var(--navy);">Order ${order.id}</div>
+          <span class="tracker-badge ${badgeClass}">${status}</span>
+        </div>
+        ${timelineHtml}
+        <div style="margin-top:1.2rem;">
+          <div class="tracker-row"><span>Customer</span><span>${order.customer}</span></div>
+          <div class="tracker-row"><span>Items</span><span style="text-align:right; max-width:60%;">${order.items}</span></div>
+          <div class="tracker-row"><span>Delivery Date</span><span>${order.deliveryDate}</span></div>
+          <div class="tracker-row"><span>Preferred Time</span><span>${order.preferredTime||'—'}</span></div>
+          <div class="tracker-row"><span>Estimated Total</span><span style="color:var(--teal); font-size:1.05rem;">₱${(order.total||0).toLocaleString()}</span></div>
+        </div>
+        <div style="margin-top:1.2rem; background:var(--teal-light); border-radius:var(--radius-sm); padding:0.8rem 1rem; font-size:0.82rem; color:var(--teal-xdark);">
+          💬 Questions? Contact us at <strong>09458554852</strong> or via Facebook.
+        </div>
+      </div>`;
+    } catch(e) {
+      el.innerHTML = '<div style="color:#ef4444; text-align:center; padding:1rem;">Failed to load order. Please try again.</div>';
+      console.error(e);
+    }
+  };
+
+  function renderDeliveryInfo() {
+    return `<div class="container section">
+      <h2 class="section-title">🚚 Delivery Information</h2>
+      <p>We deliver across Cebu Metro: Cebu City, Mandaue, Lapu-Lapu, Talisay, Consolacion. Free delivery for orders ₱2000+ within Cebu City. Order before 8am for same-day dispatch. Box orders (30-35kg) get priority scheduling.</p>
+      <div style="background:white; border-radius:var(--radius-lg); border:1px solid var(--border); padding:1.8rem; margin-top:1.5rem; box-shadow:var(--shadow-sm);">
+        <h3 style="font-family:'DM Serif Display',serif; font-weight:400; font-size:1.3rem; color:var(--navy); margin-bottom:1rem;">📅 Delivery Availability</h3>
+        <p style="color:var(--gray-500); font-size:0.875rem; margin-bottom:1.2rem;">Green = available · Yellow = limited slots · Red = fully booked. Contact us to confirm your preferred date.</p>
+        ${renderCalendarWidget(true)}
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-top:1.5rem;">
+        <div style="background:#e0f7f6; border-radius:var(--radius); padding:1.2rem;">
+          <div style="font-size:1.4rem;">⏰</div>
+          <div style="font-weight:700; color:var(--navy); margin:0.4rem 0 0.2rem;">Order Cutoff</div>
+          <div style="font-size:0.85rem; color:var(--gray-500);">Order before 8AM for same-day dispatch</div>
+        </div>
+        <div style="background:#e0f7f6; border-radius:var(--radius); padding:1.2rem;">
+          <div style="font-size:1.4rem;">🚚</div>
+          <div style="font-weight:700; color:var(--navy); margin:0.4rem 0 0.2rem;">Free Delivery</div>
+          <div style="font-size:0.85rem; color:var(--gray-500);">Orders ₱2,000+ within Cebu City</div>
+        </div>
+        <div style="background:#e0f7f6; border-radius:var(--radius); padding:1.2rem;">
+          <div style="font-size:1.4rem;">📦</div>
+          <div style="font-weight:700; color:var(--navy); margin:0.4rem 0 0.2rem;">Box Orders Priority</div>
+          <div style="font-size:0.85rem; color:var(--gray-500);">30-35kg box orders get priority scheduling</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function renderAbout() {
+    return `
+      <div class="about-hero">
+        <h2>About JEEPIA Fish Station</h2>
+        <p>Fresh Catch. Fair Prices. Fast Delivery.</p>
+      </div>
+      <div class="container section">
+        <div class="about-body">
+          <p>Founded in 2019, JEEPIA Fish Station started as a small family-run seafood business with a simple goal: to provide fresh, quality seafood while building lasting relationships with our customers.</p>
+          <p>What began as a humble operation has grown through hard work, dedication, and the trust of loyal customers who continue to support us. We take pride in offering fresh fish and seafood sourced daily, ensuring quality, freshness, and fair prices for every order.</p>
+          <p>At JEEPIA Fish Station, we believe that great service goes beyond selling seafood. We value honesty, reliability, and customer satisfaction in every transaction. Whether serving households, restaurants, resorts, or local businesses, we are committed to delivering products that meet the highest standards.</p>
+          <p>Over the years, our family business has built a reputation for dependable service, consistent quality, and genuine care for our customers. These values continue to guide us as we grow and serve more communities.</p>
+          <p>Today, JEEPIA Fish Station remains dedicated to providing fresh seafood, competitive pricing, and excellent customer service—bringing the freshest catch from sea to table.</p>
+          <div class="values-grid">
+            <div class="value-card"><div class="icon">🤝</div><h4>Honesty</h4><p>Transparent pricing and fair dealings in every transaction.</p></div>
+            <div class="value-card"><div class="icon">⏱️</div><h4>Reliability</h4><p>Consistent quality and on-time delivery you can count on.</p></div>
+            <div class="value-card"><div class="icon">❤️</div><h4>Customer Care</h4><p>Every customer matters — we go beyond just selling seafood.</p></div>
+            <div class="value-card"><div class="icon">🐟</div><h4>Freshness</h4><p>Sourced daily to guarantee the best quality every time.</p></div>
+          </div>
+          <div class="about-tagline">Fresh Catch. Fair Prices. Fast Delivery.</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderContactPage() {
+    return `
+      <div class="container section">
+        <h2 class="section-title">📞 Contact Us</h2>
+        <p style="color:var(--gray-500); margin-bottom:1rem;">We'd love to hear from you. Reach us through any of the channels below.</p>
+        <div class="contact-grid">
+          <div class="contact-info-card">
+            <h3>Get in Touch</h3>
+            <div class="contact-row">
+              <div class="contact-icon">📱</div>
+              <div>
+                <div class="contact-label">Phone / Mobile</div>
+                <div class="contact-value">
+                  <a href="tel:09458554852">09458554852</a><br>
+                  <a href="tel:09661761336">09661761336</a>
+                </div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon">📘</div>
+              <div>
+                <div class="contact-label">Facebook</div>
+                <div class="contact-value fb-links">
+                  <a href="https://www.facebook.com/amlea73" target="_blank" rel="noopener">facebook.com/amlea73</a>
+                  <a href="https://www.facebook.com/yanerxxx" target="_blank" rel="noopener">facebook.com/yanerxxx</a>
+                </div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon">📍</div>
+              <div>
+                <div class="contact-label">Location</div>
+                <div class="contact-value">Cebu, Philippines</div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon">🕐</div>
+              <div>
+                <div class="contact-label">Operating Hours</div>
+                <div class="contact-value">Daily · 6:00 AM – 6:00 PM</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-card">
+            <h3 style="margin-bottom:1rem;">Send us a message</h3>
+            <div class="form-group"><label>Your Name</label><input id="msgName" placeholder="Your full name" /></div>
+            <div class="form-group"><label>Phone / Facebook</label><input id="msgContact" placeholder="09XX XXX XXXX or your Facebook name" /></div>
+            <div class="form-group"><label>Message</label><textarea id="msgBody" rows="4" placeholder="Your inquiry or message..."></textarea></div>
+            <button class="btn btn-primary" onclick="submitContact()">Send Message</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  async function submitContact() {
+    const name = document.getElementById('msgName')?.value.trim();
+    const contact = document.getElementById('msgContact')?.value.trim();
+    const body = document.getElementById('msgBody')?.value.trim();
+    if(!name || !body) { alert("Please fill in your name and message."); return; }
+    try {
+      await window._fs.add('inquiries', { name, contact, message: body });
+      alert("✅ Message received! We'll get back to you as soon as possible. You can also reach us on Facebook or by phone.");
+      document.getElementById('msgName').value = '';
+      document.getElementById('msgContact').value = '';
+      document.getElementById('msgBody').value = '';
+    } catch(e) {
+      alert("Message saved locally. Please also reach us by phone or Facebook.");
+      console.error(e);
+    }
+  }
+
+  // ---- ADMIN ----
+
+  async function refreshAdminContent() {
+    const el = document.getElementById('adminContent');
+    if(!el) return;
+    el.innerHTML = '<div style="padding:2rem; color:var(--teal);">⟳ Loading...</div>';
+    try {
+      const colMap = { orders:'orders', products:'products', posts:'posts', inquiries:'inquiries', dashboard:'orders', calendar:null };
+      const col = colMap[adminActiveTab];
+      if(col) await window._fs.load(col);
+      if(adminActiveTab === 'calendar') {
+        try {
+          const { getDoc, doc } = await import("https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js");
+          const snap = await getDoc(doc(window._db, 'settings', 'calendar'));
+          window._cache['calendar'] = snap.exists() ? (snap.data().data || {}) : {};
+        } catch(e) {}
+      }
+    } catch(e) { console.error('Refresh error:', e); }
+    el.innerHTML = renderAdminContent(adminActiveTab);
+    bindAdminContentEvents();
+  }
+
+  function renderAdminLayout() {
+    return `<div class="admin-container">
+      <div class="admin-sidebar">
+        <div class="admin-sidebar-brand">
+          <strong>🐟 JEEPIA Admin</strong>
+          <small>Welcome, ${currentAdmin.display}</small>
+        </div>
+        <div class="sidebar-section-label">Main Menu</div>
+        ${['dashboard','orders','products','posts','inquiries','calendar'].map(tab =>
+          `<div class="sidebar-item ${adminActiveTab===tab?'active':''}" data-tab="${tab}">
+            <span class="si-icon">${{dashboard:'📊',orders:'📦',products:'🐟',posts:'📸',inquiries:'✉️',calendar:'📅'}[tab]}</span>
+            ${{dashboard:'Dashboard',orders:'Orders',products:'Products',posts:'Posts',inquiries:'Inquiries',calendar:'Delivery Calendar'}[tab]}
+          </div>`).join('')}
+        <div class="sidebar-section-label" style="margin-top:auto;">Account</div>
+        <div class="sidebar-item" onclick="render('home')"><span class="si-icon">🏠</span> Back to Site</div>
+        <div class="sidebar-item" onclick="logout()"><span class="si-icon">🚪</span> Logout</div>
+      </div>
+      <div class="admin-main"><div id="adminContent">${renderAdminContent(adminActiveTab)}</div></div>
+    </div>`;
+  }
+
+  function renderAdminContent(tab) {
+    if(tab==='dashboard') return renderAdminDashboard();
+    if(tab==='orders') return renderAdminOrders();
+    if(tab==='products') return renderAdminProducts();
+    if(tab==='posts') return renderAdminPosts();
+    if(tab==='inquiries') return renderAdminInquiries();
+    if(tab==='calendar') return renderAdminCalendar();
+    return '';
+  }
+
+  function renderAdminDashboard() {
+    const orders = DB.get('orders') || [];
+    const pending = orders.filter(o => o.status==='Pending').length;
+    const confirmed = orders.filter(o => o.status==='Confirmed').reduce((s,o)=>s+(o.total||0),0);
+    const recent = orders.slice(-5).reverse();
+    return `
+      <div class="admin-page-title">Dashboard Overview</div>
+      <div class="stats-grid">
+        <div class="stat-card"><h3>Total Orders</h3><p>${orders.length}</p></div>
+        <div class="stat-card"><h3>Pending</h3><p>${pending}</p></div>
+        <div class="stat-card"><h3>Confirmed Revenue</h3><p style="font-size:1.5rem;">₱${confirmed.toLocaleString()}</p></div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:1rem; font-family:'DM Serif Display',serif; font-weight:400; font-size:1.25rem; color:var(--navy);">Recent Orders</h3>
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody>${recent.length ? recent.map(o => `<tr>
+            <td style="font-weight:600;">${o.id}</td><td>${o.customer}</td><td>${o.deliveryDate}</td>
+            <td style="font-weight:700;">₱${(o.total||0).toLocaleString()}</td>
+            <td><span class="badge badge-${(o.status||'pending').toLowerCase()}">${o.status}</span></td>
+          </tr>`).join('') : '<tr><td colspan="5" style="color:#aaa; text-align:center; padding:2rem;">No orders yet.</td></tr>'}</tbody>
+        </table>
+        </div>
+      </div>`;
+  }
+
+  function renderAdminOrders() {
+  const orders = DB.get('orders') || [];
+
+  return `
+    <div class="admin-page-title">Manage Orders</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Type</th>
+            <th>Delivery</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${
+            orders.length
+              ? orders.map(o => `
+                <tr>
+                  <td style="font-weight:600;">${o.id}</td>
+                  <td>${o.customer}</td>
+                  <td>${o.type || ''}</td>
+                  <td>${o.deliveryDate}</td>
+
+                  <td style="max-width:180px; font-size:0.82rem; color:var(--text-muted);">
+                    ${o.items}
+                  </td>
+
+                  <td style="font-weight:700;">
+                    ₱${(o.total || 0).toLocaleString()}
+                  </td>
+
+                  <td>
+                    <select
+                      class="status-select"
+                      data-id="${o._id || o.id}"
+                      style="width:auto; padding:0.3rem 0.6rem; font-size:0.8rem; border-radius:8px;"
+                    >
+                      ${['Pending','Confirmed','Processing','Cancelled']
+                        .map(s => `
+                          <option ${o.status === s ? 'selected' : ''}>
+                            ${s}
+                          </option>
+                        `).join('')}
+                    </select>
+                  </td>
+
+                  <td>
+                    <button
+                      class="btn btn-danger btn-sm del-order-btn"
+                      data-id="${o._id || o.id}"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              `).join('')
+              : `
+                <tr>
+                  <td colspan="8" style="color:#aaa; text-align:center; padding:2rem;">
+                    No orders yet.
+                  </td>
+                </tr>
+              `
+          }
+        </tbody>
+
+      </table>
+    </div>
+  `;
+}
+
+  // UPDATED: Products with EDIT button and IMAGE field
+  function renderAdminProducts() {
+    const products = DB.get('products') || [];
+    return `
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem;">
+        <div class="admin-page-title" style="margin-bottom:0;">Products</div>
+        <button id="openAddProductBtn" class="btn btn-primary">+ Add New Product</button>
+      </div>
+
+      <div id="addProductForm" style="display:none; background:var(--gray-50); border-radius:var(--radius); padding:1.5rem; margin-bottom:1.5rem; border:1px solid var(--border);">
+        <h4 style="margin-bottom:1rem; font-family:'DM Serif Display',serif; font-weight:400;">New Product</h4>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.8rem; flex-wrap:wrap;">
+          <div class="form-group"><label>Name *</label><input id="np_name" placeholder="e.g. Bangus" /></div>
+          <div class="form-group"><label>Local / English name</label><input id="np_local" placeholder="e.g. Milkfish" /></div>
+          <div class="form-group"><label>Category *</label><input id="np_cat" placeholder="Fish / Shrimp / Crab..." /></div>
+          <div class="form-group"><label>Emoji</label><input id="np_emoji" placeholder="🐟" style="width:80px;" /></div>
+          <div class="form-group"><label>Image URL</label><input id="np_imageUrl" placeholder="https://... (paste image link)" /></div>
+          <div class="form-group"><label>Price per kg (₱) *</label><input type="number" id="np_priceKg" placeholder="0" /></div>
+          <div class="form-group"><label>Box price (₱) — leave 0 if none</label><input type="number" id="np_priceBox" placeholder="0" /></div>
+          <div class="form-group"><label>kg per box</label><input type="number" id="np_kgPerBox" placeholder="0" /></div>
+          <div class="form-group"><label>Description</label><input id="np_desc" placeholder="Short description" /></div>
+        </div>
+        <div style="display:flex; gap:0.8rem; margin-top:0.5rem;">
+          <button id="saveNewProductBtn" class="btn btn-primary">✓ Save Product</button>
+          <button id="cancelAddProductBtn" class="btn btn-outline">Cancel</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+       <table>
+        <thead><tr><th>Image</th><th>Name</th><th>Price/kg</th><th>Box?</th><th>Box price</th><th>kg/box</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>${products.map(p => `<tr data-pid="${p._id||p.id}">
+          <td><div class="product-thumb">${p.imageUrl ? `<img src="${p.imageUrl}" onerror="this.style.display='none'; this.parentElement.innerHTML='${p.emoji}';">` : (p.emoji || '🐟')}</div></td>
+          <td style="font-weight:600;">${p.emoji} ${p.name}<br><small style="color:var(--text-muted); font-weight:400;">${p.local||''}</small></td>
+          <td><input type="number" class="inline-price" data-id="${p._id||p.id}" data-field="priceKg" value="${p.priceKg}" style="width:85px;"></td>
+          <td>${p.sellByBox?'✅':'—'}</td>
+          <td><input type="number" class="inline-price" data-id="${p._id||p.id}" data-field="priceBox" value="${p.priceBox||0}" style="width:95px;"></td>
+          <td><input type="number" class="inline-price" data-id="${p._id||p.id}" data-field="kgPerBox" value="${p.kgPerBox||0}" style="width:65px;"></td>
+          <td><button class="toggle-avail" data-id="${p._id||p.id}" style="background:${p.isAvailable?'#10b981':'#ef4444'}; border:none; padding:0.28rem 0.8rem; border-radius:999px; color:white; cursor:pointer; font-size:0.78rem; font-weight:600; white-space:nowrap;">${p.isAvailable?'Available':'Out'}</button></td>
+          <td>
+            <button class="btn btn-outline btn-sm edit-product-btn" data-id="${p._id||p.id}" data-name="${p.name}" data-local="${p.local||''}" data-cat="${p.category||''}" data-pricekg="${p.priceKg}" data-pricebox="${p.priceBox||0}" data-kgbox="${p.kgPerBox||0}" data-emoji="${p.emoji||'🐟'}" data-imageurl="${p.imageUrl||''}" data-desc="${p.description||''}">✏️ Edit</button>
+            <button class="btn btn-danger btn-sm del-product-btn" data-id="${p._id||p.id}">Delete</button>
+          </td>
+        </td>`).join('')}</tbody>
+       </table>
+      </div>
+
+      <!-- Edit Product Modal -->
+      <div id="editProductModal" class="edit-modal">
+        <div class="edit-modal-content">
+          <h3 style="margin-bottom:1rem;">✏️ Edit Product</h3>
+          <input type="hidden" id="edit_id" />
+          <div class="form-group"><label>Name</label><input id="edit_name" /></div>
+          <div class="form-group"><label>Local Name</label><input id="edit_local" /></div>
+          <div class="form-group"><label>Category</label><input id="edit_category" /></div>
+          <div class="form-group"><label>Price per kg (₱)</label><input type="number" id="edit_priceKg" /></div>
+          <div class="form-group"><label>Box Price (₱)</label><input type="number" id="edit_priceBox" /></div>
+          <div class="form-group"><label>kg per Box</label><input type="number" id="edit_kgPerBox" /></div>
+          <div class="form-group"><label>Emoji</label><input id="edit_emoji" /></div>
+          <div class="form-group"><label>Image URL</label><input id="edit_imageUrl" placeholder="https://..." /><small style="color:var(--gray-500);">Paste direct image link from Facebook, Imgur, etc.</small></div>
+          <div class="form-group"><label>Description</label><textarea id="edit_desc" rows="2"></textarea></div>
+          <div style="display:flex; gap:0.5rem; margin-top:1rem;">
+            <button class="btn btn-primary" id="saveProductEdit">💾 Save Changes</button>
+            <button class="btn btn-outline" id="closeEditModal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderAdminPosts() {
+    const posts = (DB.get('posts') || []).slice().reverse();
+    const postListHtml = posts.length ? posts.map(p => {
+      const thumbHtml = p.imageUrl
+        ? `<div class="post-admin-thumb"><img src="${p.imageUrl}" alt="${p.title}" onerror="this.parentNode.innerHTML='${p.emoji||'🐟'}';" /></div>`
+        : `<div class="post-admin-thumb">${p.emoji||'🐟'}</div>`;
+      return `<div class="post-admin-card">
+        ${thumbHtml}
+        <div style="flex:1;">
+          <div style="font-weight:700; color:var(--navy);">${p.title}</div>
+          <div style="font-size:0.75rem; color:var(--teal); font-weight:600;">${p.tag||''}</div>
+          <div style="font-size:0.82rem; color:var(--gray-500); margin:0.2rem 0;">${p.desc}</div>
+          <div style="font-size:0.82rem; font-weight:700; color:var(--deep-teal);">${p.price||''}</div>
+        </div>
+        <button class="btn btn-danger btn-sm del-post-btn" data-id="${p._id||p.id}">Delete</button>
+      </div>`;
+    }).join('') : '<p style="color:#888; margin-bottom:1rem;">No posts yet. Create your first one below!</p>';
+
+    return `
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+        <h3>📸 Homepage Posts</h3>
+      </div>
+      <p style="font-size:0.85rem; color:var(--gray-500); margin-bottom:1.2rem;">These posts appear on the homepage as "Latest from JEEPIA". Add daily catch updates, promos, or fresh arrivals. Paste a photo URL from Facebook, Google Photos, or any image link.</p>
+
+      ${postListHtml}
+
+      <div style="background:#f1f5f9; border-radius:1rem; padding:1.5rem; border:1px solid var(--gray-200); margin-top:1rem;">
+        <h4 style="margin-bottom:1rem;">➕ Create New Post</h4>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;">
+          <div class="form-group"><label>Title *</label><input id="pp_title" placeholder="e.g. Fresh Bangus today!" /></div>
+          <div class="form-group"><label>Tag / Label</label><input id="pp_tag" placeholder="Today's Catch / Promo / Fresh Stock" /></div>
+          <div class="form-group" style="grid-column:1/-1;"><label>Description *</label><textarea id="pp_desc" rows="2" placeholder="Describe the product, availability, or promo..."></textarea></div>
+          <div class="form-group"><label>Price (optional)</label><input id="pp_price" placeholder="e.g. ₱180/kg or ₱5,400/box" /></div>
+          <div class="form-group"><label>Emoji (fallback if no image)</label><input id="pp_emoji" placeholder="🐟" style="width:80px;" /></div>
+          <div class="form-group" style="grid-column:1/-1;">
+            <label>Photo — paste image URL <span style="font-weight:400; color:var(--gray-500);">(from Facebook, Google Photos, Imgur, etc.)</span></label>
+            <input id="pp_imageUrl" placeholder="https://..." />
+            <div id="pp_imgPreview" style="margin-top:0.5rem;"></div>
+            <small style="color:var(--gray-500); font-size:0.78rem; display:block; margin-top:4px;">
+              💡 Tip: On Facebook, right-click a photo → "Open image in new tab" → copy that URL.<br>
+              Or upload to <a href="https://imgbb.com" target="_blank" style="color:var(--teal);">imgbb.com</a> (free) and paste the direct link here.
+            </small>
+          </div>
+        </div>
+        <div style="display:flex; gap:0.8rem; margin-top:0.5rem; flex-wrap:wrap;">
+          <button id="savePostBtn" class="btn btn-primary">📢 Publish Post</button>
+          <button id="clearPostFormBtn" class="btn btn-outline">Clear</button>
+        </div>
+      </div>`;
+  }
+
+  function renderAdminInquiries() {
+    const inqs = DB.get('inquiries') || [];
+    const rows = inqs.length ? inqs.slice().reverse().map(i => `
+      <div style="background:white; border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.2rem; margin-bottom:0.8rem;">
+        <div style="font-weight:700; color:var(--navy);">${i.name} <span style="font-size:0.78rem; font-weight:400; color:var(--text-muted);">${i.contact||''}</span></div>
+        <div style="margin-top:0.4rem; color:var(--gray-700);">${i.message}</div>
+      </div>`).join('') : '<p style="color:#aaa; padding:1rem 0;">No inquiries yet.</p>';
+    return `<div><div class="admin-page-title">Customer Inquiries</div>${rows}</div>`;
+  }
+
+  function bindAdminContentEvents() {
+    // Save product inline
+    document.querySelectorAll('.inline-price').forEach(input => {
+      input.addEventListener('change', async e => {
+        const _id = input.getAttribute('data-id');
+        const field = input.getAttribute('data-field');
+        let value = input.value;
+        if (field === 'priceKg' || field === 'priceBox' || field === 'kgPerBox') value = parseFloat(value) || 0;
+        try {
+          await window._fs.update('products', _id, { [field]: value });
+          if (field === 'priceBox' || field === 'kgPerBox') {
+            const products = DB.get('products');
+            const prod = products.find(p => p._id === _id);
+            if (prod) {
+              const sellByBox = (prod.priceBox > 0 && prod.kgPerBox > 0);
+              await window._fs.update('products', _id, { sellByBox });
+            }
+          }
+          input.style.borderColor = '#10b981';
+          setTimeout(() => input.style.borderColor = '', 1000);
+        } catch(err) { console.error(err); }
+      });
+    });
+
+    // Toggle availability
+    document.querySelectorAll('.toggle-avail').forEach(btn => {
+      btn.addEventListener('click', async e => {
+        const _id = btn.getAttribute('data-id');
+        const products = DB.get('products')||[];
+        const p = products.find(p=>p._id===_id);
+        if(p) {
+          const newVal = !p.isAvailable;
+          try {
+            await window._fs.update('products', _id, { isAvailable: newVal });
+            btn.textContent = newVal ? 'Available' : 'Out';
+            btn.style.background = newVal ? '#10b981' : '#ef4444';
+          } catch(err) { alert('Update failed: ' + err.message); }
+        }
+      });
+    });
+
+    // Delete product
+    document.querySelectorAll('.del-product-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const _id = btn.getAttribute('data-id');
+        showConfirm('Delete this product? This cannot be undone.', async () => {
+          try {
+            await window._fs.delete('products', _id);
+            refreshAdminContent();
+          } catch(err) { alert('Delete failed: ' + err.message); }
+        });
+      });
+    });
+
+    // Edit product button - open modal
+    document.querySelectorAll('.edit-product-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        document.getElementById('edit_id').value = id;
+        document.getElementById('edit_name').value = btn.getAttribute('data-name') || '';
+        document.getElementById('edit_local').value = btn.getAttribute('data-local') || '';
+        document.getElementById('edit_category').value = btn.getAttribute('data-cat') || '';
+        document.getElementById('edit_priceKg').value = btn.getAttribute('data-pricekg') || 0;
+        document.getElementById('edit_priceBox').value = btn.getAttribute('data-pricebox') || 0;
+        document.getElementById('edit_kgPerBox').value = btn.getAttribute('data-kgbox') || 0;
+        document.getElementById('edit_emoji').value = btn.getAttribute('data-emoji') || '🐟';
+        document.getElementById('edit_imageUrl').value = btn.getAttribute('data-imageurl') || '';
+        document.getElementById('edit_desc').value = btn.getAttribute('data-desc') || '';
+        document.getElementById('editProductModal').style.display = 'flex';
+      });
+    });
+
+    // Save edit
+    const saveEditBtn = document.getElementById('saveProductEdit');
+    if (saveEditBtn) {
+      saveEditBtn.addEventListener('click', async () => {
+        const id = document.getElementById('edit_id').value;
+        const priceBox = parseFloat(document.getElementById('edit_priceBox').value) || 0;
+        const kgPerBox = parseFloat(document.getElementById('edit_kgPerBox').value) || 0;
+        const updates = {
+          name: document.getElementById('edit_name').value,
+          local: document.getElementById('edit_local').value,
+          category: document.getElementById('edit_category').value,
+          priceKg: parseFloat(document.getElementById('edit_priceKg').value) || 0,
+          priceBox: priceBox,
+          kgPerBox: kgPerBox,
+          emoji: document.getElementById('edit_emoji').value || '🐟',
+          imageUrl: document.getElementById('edit_imageUrl').value,
+          description: document.getElementById('edit_desc').value,
+          sellByBox: (priceBox > 0 && kgPerBox > 0)
+        };
+        try {
+          await window._fs.update('products', id, updates);
+          document.getElementById('editProductModal').style.display = 'none';
+          refreshAdminContent();
+          alert("✅ Product updated successfully!");
+        } catch(err) { alert('Update failed: ' + err.message); }
+      });
+    }
+
+    // Close modal
+    const closeModalBtn = document.getElementById('closeEditModal');
+    if (closeModalBtn) {
+      closeModalBtn.addEventListener('click', () => {
+        document.getElementById('editProductModal').style.display = 'none';
+      });
+    }
+    const modalBg = document.getElementById('editProductModal');
+    if (modalBg) {
+      modalBg.addEventListener('click', (e) => {
+        if (e.target === modalBg) modalBg.style.display = 'none';
+      });
+    }
+
+    // Add product form
+    const openBtn = document.getElementById('openAddProductBtn');
+    const form = document.getElementById('addProductForm');
+    const cancelBtn = document.getElementById('cancelAddProductBtn');
+    const saveNewBtn = document.getElementById('saveNewProductBtn');
+
+    if(openBtn) openBtn.addEventListener('click', () => {
+      form.style.display = form.style.display==='none' ? 'block' : 'none';
+    });
+    if(cancelBtn) cancelBtn.addEventListener('click', () => { form.style.display='none'; });
+    if(saveNewBtn) saveNewBtn.addEventListener('click', async () => {
+      const name = document.getElementById('np_name').value.trim();
+      const local = document.getElementById('np_local').value.trim();
+      const cat = document.getElementById('np_cat').value.trim();
+      const emoji = document.getElementById('np_emoji').value.trim() || '🐟';
+      const imageUrl = document.getElementById('np_imageUrl').value.trim();
+      const priceKg = parseFloat(document.getElementById('np_priceKg').value) || 0;
+      const priceBox = parseFloat(document.getElementById('np_priceBox').value) || 0;
+      const kgPerBox = parseFloat(document.getElementById('np_kgPerBox').value) || 0;
+      const desc = document.getElementById('np_desc').value.trim();
+      if(!name || !cat || priceKg<=0) { alert('Name, Category, and Price/kg are required.'); return; }
+      try {
+        await window._fs.add('products', {
+          name, local, category:cat, priceKg,
+          sellByBox:(priceBox>0&&kgPerBox>0), priceBox, kgPerBox,
+          emoji, imageUrl, isAvailable:true, description:desc
+        });
+        form.style.display = 'none';
+        refreshAdminContent();
+        alert("✅ Product added successfully!");
+      } catch(err) { alert('Add product failed: ' + err.message); }
+    });
+
+    // Order status change
+    document.querySelectorAll('.status-select').forEach(sel => {
+      sel.addEventListener('change', async e => {
+        const _id = sel.getAttribute('data-id');
+        const newStatus = e.target.value;
+        try {
+          await window._fs.update('orders', _id, { status: newStatus });
+          const orders = DB.get('orders') || [];
+          const order = orders.find(o => (o._id||o.id) === _id);
+          if(order) {
+            // Send email notification if configured
+            console.log(`Order ${order.id} status changed to ${newStatus}`);
+          }
+        } catch(err) { console.error('Status update failed:', err); }
+      });
+    });
+
+    // Delete order
+    document.querySelectorAll('.del-order-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const _id = btn.getAttribute('data-id');
+        showConfirm('This order will be permanently deleted.', async () => {
+          try {
+            await window._fs.delete('orders', _id);
+            refreshAdminContent();
+          } catch(err) { alert('Delete failed: ' + err.message); }
+        });
+      });
+    });
+
+    // Posts events
+    if (adminActiveTab === 'posts') {
+      const urlInput = document.getElementById('pp_imageUrl');
+      const preview = document.getElementById('pp_imgPreview');
+      if(urlInput && preview) {
+        urlInput.addEventListener('input', () => {
+          const url = urlInput.value.trim();
+          if(url) preview.innerHTML = `<img src="${url}" style="max-height:120px; border-radius:10px; margin-top:4px;" onerror="this.parentNode.innerHTML='<span style=color:#e74c3c;font-size:0.8rem;>⚠️ Could not load image — check the URL</span>'" />`;
+          else preview.innerHTML = '';
+        });
+      }
+
+      const savePostBtn = document.getElementById('savePostBtn');
+      if(savePostBtn) {
+        savePostBtn.addEventListener('click', async () => {
+          const title = document.getElementById('pp_title').value.trim();
+          const desc = document.getElementById('pp_desc').value.trim();
+          if(!title || !desc) { alert('Title and description are required.'); return; }
+          try {
+            await window._fs.add('posts', {
+              title,
+              tag: document.getElementById('pp_tag').value.trim() || "Fresh Stock",
+              desc,
+              price: document.getElementById('pp_price').value.trim(),
+              emoji: document.getElementById('pp_emoji').value.trim() || '🐟',
+              imageUrl: document.getElementById('pp_imageUrl').value.trim()
+            });
+            refreshAdminContent();
+          } catch(err) { alert('Publish failed: ' + err.message); }
+        });
+      }
+
+      const clearPostBtn = document.getElementById('clearPostFormBtn');
+      if(clearPostBtn) {
+        clearPostBtn.addEventListener('click', () => {
+          ['pp_title','pp_tag','pp_desc','pp_price','pp_emoji','pp_imageUrl'].forEach(id => {
+            const el = document.getElementById(id); if(el) el.value='';
+          });
+          const previewDiv = document.getElementById('pp_imgPreview');
+          if(previewDiv) previewDiv.innerHTML='';
+        });
+      }
+
+      document.querySelectorAll('.del-post-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const _id = btn.getAttribute('data-id');
+          showConfirm('Delete this post?', async () => {
+            try {
+              await window._fs.delete('posts', _id);
+              refreshAdminContent();
+            } catch(err) { alert('Delete failed: ' + err.message); }
+          });
+        });
+      });
+    }
+  }
+
+  function attachAdminEvents() {
+    // Sidebar tab switching
+    document.querySelectorAll('.sidebar-item[data-tab]').forEach(el => {
+      el.addEventListener('click', e => {
+        const tab = e.currentTarget.getAttribute('data-tab');
+        if(tab) {
+          adminActiveTab = tab;
+          document.querySelectorAll('.sidebar-item[data-tab]').forEach(s => s.classList.remove('active'));
+          e.currentTarget.classList.add('active');
+          refreshAdminContent();
+        }
+      });
+    });
+    bindAdminContentEvents();
+  }
+
+  function renderLogin() {
+    return `<div style="max-width:400px; margin:8rem auto; background:white; border-radius:var(--radius-lg); padding:2.2rem; box-shadow:var(--shadow-lg); border:1px solid var(--border);">
+      <div style="text-align:center; margin-bottom:1.8rem;">
+        <div style="font-size:2.5rem; margin-bottom:0.5rem;">🐟</div>
+        <h2 style="font-family:'DM Serif Display',serif; font-weight:400; font-size:1.6rem; color:var(--navy);">Admin Login</h2>
+        <p style="font-size:0.83rem; color:var(--text-muted); margin-top:0.3rem;">JEEPIA Fish Station</p>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" id="loginUser" placeholder="admin@jeepia.com" /></div>
+      <div class="form-group"><label>Password</label><input type="password" id="loginPass" placeholder="Enter password" /></div>
+      <div id="loginError" style="color:#ef4444; font-size:0.82rem; margin-bottom:0.5rem; display:none;"></div>
+      <button class="btn btn-primary btn-full" style="margin-top:0.5rem;" id="loginBtn">Sign In</button>
+    </div>`;
+  }
+
+  function attachLoginEvents() {
+    document.getElementById('loginBtn')?.addEventListener('click', async () => {
+      const btn = document.getElementById('loginBtn');
+      const errEl = document.getElementById('loginError');
+      btn.textContent = 'Signing in...'; btn.disabled = true;
+      if(errEl) errEl.style.display = 'none';
+      const u = document.getElementById('loginUser').value;
+      const p = document.getElementById('loginPass').value;
+      const ok = await login(u, p);
+      if(ok) {
+        render('admin');
+      } else {
+        btn.textContent = 'Sign In'; btn.disabled = false;
+        if(errEl) { errEl.textContent = 'Invalid email or password.'; errEl.style.display = 'block'; }
+      }
+    });
+  }
+
+  function attachPublicEvents() {
+    document.querySelectorAll('.cat-filter').forEach(btn => {
+      btn.onclick = () => { productFilterCat = btn.getAttribute('data-cat'); render('products'); };
+    });
+    document.querySelectorAll('.radio-label').forEach(r => {
+      r.onclick = function() {
+        document.querySelectorAll('.radio-label').forEach(l=>l.classList.remove('selected'));
+        this.classList.add('selected');
+        const hidden = document.getElementById('deliveryType');
+        if(hidden) hidden.value = this.getAttribute('data-type');
+      };
+    });
+    window.updateCartQty = updateCartQty;
+    window.removeCartItem = removeCartItem;
+    window.addCartFromSelector = addCartFromSelector;
+    window.submitOrderRequest = submitOrderRequest;
+    window.submitContact = submitContact;
+    window.render = render;
+    window.logout = logout;
+  }
+
+  window.addEventListener('load', () => {
+    if (window._boot) window._boot();
+    else setTimeout(() => { if(window._boot) window._boot(); }, 300);
+  });
+</script>
+</body>
+</html>
