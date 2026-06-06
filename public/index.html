@@ -1441,6 +1441,8 @@ Please try again in a few moments or contact JEEPIA Fish Station for assistance.
   function renderAdminOrders() {
   const orders = DB.get('orders') || [];
 
+        console.log('ORDERS:', orders);
+
   return `
     <div class="admin-page-title">Manage Orders</div>
 
